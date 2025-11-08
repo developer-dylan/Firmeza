@@ -7,7 +7,6 @@ using Firmezaa.Web.Models.Entities;
 namespace Firmezaa.Web.Controllers
 {
     
-
     [Authorize(Policy = "AdminOnly")]
     public class UsersController : Controller
     {

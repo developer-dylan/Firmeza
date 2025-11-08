@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Subir Excel";
+}
+
+<h2>Subir archivo Excel</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Upload" asp-controller="Excel" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".xlsx" />
+    <button type="submit" class="btn btn-primary">Subir</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

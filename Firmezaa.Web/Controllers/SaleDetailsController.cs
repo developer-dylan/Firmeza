@@ -6,14 +6,9 @@ using Firmezaa.Web.Models.Entities;
 
 namespace Firmezaa.Web.Controllers
 {
-    public class SaleDetailsController : Controller
+    public class SaleDetailsController(AppDbContext context) : Controller
     {
-        private readonly AppDbContext _context;
-
-        public SaleDetailsController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         // GET: SaleDetails
         public async Task<IActionResult> Index()
@@ -63,6 +58,7 @@ namespace Firmezaa.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", saleDetail.ProductId);
             ViewData["SaleId"] = new SelectList(_context.Set<Sale>(), "Id", "Id", saleDetail.SaleId);
             return View(saleDetail);
@@ -81,6 +77,7 @@ namespace Firmezaa.Web.Controllers
             {
                 return NotFound();
             }
+
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", saleDetail.ProductId);
             ViewData["SaleId"] = new SelectList(_context.Set<Sale>(), "Id", "Id", saleDetail.SaleId);
             return View(saleDetail);
@@ -91,7 +88,8 @@ namespace Firmezaa.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SaleId,ProductId,Quantity,UnitPrice")] SaleDetail saleDetail)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,SaleId,ProductId,Quantity,UnitPrice")] SaleDetail saleDetail)
         {
             if (id != saleDetail.Id)
             {
@@ -116,8 +114,10 @@ namespace Firmezaa.Web.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", saleDetail.ProductId);
             ViewData["SaleId"] = new SelectList(_context.Set<Sale>(), "Id", "Id", saleDetail.SaleId);
             return View(saleDetail);
@@ -163,4 +163,4 @@ namespace Firmezaa.Web.Controllers
             return _context.SaleDetails.Any(e => e.Id == id);
         }
     }
-}
+}    

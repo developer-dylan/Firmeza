@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Firmezaa.Web.Models.Entities;
     
-namespace Firmeza.Web.Data
+namespace Firmezaa.Web.Data
 {
     
     public static class SeedData
@@ -25,7 +25,7 @@ namespace Firmeza.Web.Data
             }
 
             // Create admin user
-            string adminEmail = "admin@gmail.com";
+            string adminEmail = "admin@firmeza.com";
             string adminPassword = "admin123.";
 
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);

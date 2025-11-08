@@ -13,4 +13,8 @@ public class User : IdentityUser
 
     [MaxLength(200)]
     public string? Address { get; set; }
+    
+    [DataType(DataType.Date)]
+    public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
+    
 }

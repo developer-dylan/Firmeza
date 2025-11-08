@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Firmezaa.Web.Models;
+using Firmezaa.Web.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Firmezaa.Web.Models;
-using Firmezaa.Web.Models.Entities;
 
 namespace Firmezaa.Web.Controllers
 {
-    
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;

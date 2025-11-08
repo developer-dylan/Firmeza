@@ -35,9 +35,4 @@
       <_ContentIncludedByDefault Remove="Pages\Admin\_AdminLayout.cshtml" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Views\SaleDetails\" />
-      <Folder Include="Views\Users\" />
-    </ItemGroup>
-
 </Project>
