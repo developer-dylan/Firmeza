@@ -17,7 +17,7 @@
             </form>
 
             <!-- Botón existente de crear nuevo produco -->
-            <a asp-action="Create" class="btn btn-warning text-dark shadow-sm px-4 fw-semibold rounded-3">+ Nuevo</a>
+            <a asp-action="Create" class="btn btn-warning text-dark shadow-sm px-4 fw-semibold rounded-3"> Agregar Producto</a>
         </div>
     </div>
 
@@ -54,7 +54,9 @@
                                     <td>@Html.DisplayFor(m => item.Price)</td>
                                     <td>@Html.DisplayFor(m => item.Quantity)</td>
                                     <td>@Html.DisplayFor(m => item.Category)</td>
-                                    <td>@Html.DisplayFor(m => item.CreatedAt)</td>
+                                    <td>@(item.CreatedAt?.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+
+
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
                                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning text-dark fw-semibold rounded-3">Editar</a>

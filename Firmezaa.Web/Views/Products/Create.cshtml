@@ -13,6 +13,7 @@
             <p class="text-center text-muted mb-4">Registra herramientas, materiales o equipos nuevos en el inventario.</p>
 
             <form asp-action="Create">
+                <input type="hidden" name="localTime" id="localTime" />
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
 
                 <div class="row g-3">
@@ -60,4 +61,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.getElementById("localTime").value = new Date().toISOString();
+    </script>
 }

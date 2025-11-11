@@ -3,21 +3,23 @@ using Firmezaa.Web.DTOs;
 using Firmezaa.Web.Repositories.Interfaces;
 using Firmezaa.Web.Models.Entities;
 
-namespace Firmezaa.Web.Repositories.Implementations;
-
-public class ExcelRepository(AppDbContext context) : IExcelRepository
+namespace Firmezaa.Web.Repositories.Implementations
 {
-    public async Task SaveProductsFromExcelAsync(IEnumerable<ExcelProductDto> excelProducts)
+    public class ExcelRepository(AppDbContext context) : IExcelRepository
     {
-        var products = excelProducts.Select(dto => new Product
+        public async Task SaveProductsFromExcelAsync(IEnumerable<ExcelProductDto> excelProducts, DateTime? userCreatedAt = null)
         {
-            Name = dto.Name,
-            Price = dto.Price,
-            Quantity = dto.Quantity,
-            CreatedAt = DateTime.UtcNow
-        }).ToList();
+            var products = excelProducts.Select(dto => new Product
+            {
+                Name = dto.Name,
+                Price = dto.Price,
+                Quantity = dto.Quantity,
+                // ✅ Usa la hora local del dispositivo si se recibió desde el servicio
+                CreatedAt = userCreatedAt ?? DateTime.UtcNow
+            }).ToList();
 
-        await context.Products.AddRangeAsync(products);
-        await context.SaveChangesAsync();
+            await context.Products.AddRangeAsync(products);
+            await context.SaveChangesAsync();
+        }
     }
 }

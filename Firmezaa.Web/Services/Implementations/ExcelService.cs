@@ -4,78 +4,119 @@ using Firmezaa.Web.Services.Interfaces;
 using Firmezaa.Web.Repositories.Interfaces;
 using OfficeOpenXml;
 
-
-namespace Firmezaa.Web.Services.Implementations;
-
-public class ExcelService : IExcelService
+namespace Firmezaa.Web.Services.Implementations
 {
-    private readonly IExcelRepository _excelRepository;
-
-    public ExcelService(IExcelRepository excelRepository)
+    public class ExcelService(IExcelRepository excelRepository) : IExcelService
     {
-        _excelRepository = excelRepository ?? throw new ArgumentNullException(nameof(excelRepository));
-    }
+        private readonly IExcelRepository _excelRepository = excelRepository ?? throw new ArgumentNullException(nameof(excelRepository));
 
-    public async Task<bool> ProcessExcelAsync(IFormFile file)
-    {
-        if (file == null || file.Length == 0)
-            return false;
-
-        try
+        public async Task<ExcelImportResult> ProcessExcelAsync(IFormFile? file, DateTime? userCreatedAt = null)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var result = new ExcelImportResult();
 
-            using var stream = new MemoryStream();
-            await file.CopyToAsync(stream);
-
-            using var package = new ExcelPackage(stream);
-            var worksheet = package.Workbook.Worksheets.FirstOrDefault();
-            if (worksheet == null || worksheet.Dimension == null)
-                return false;
-
-            var products = new List<ExcelProductDto>();
-            int totalRows = worksheet.Dimension.End.Row;
-
-            for (int row = 2; row <= totalRows; row++)
+            if (file == null || file.Length == 0)
             {
-                var name = worksheet.Cells[row, 1].Text?.Trim();
-                if (string.IsNullOrEmpty(name)) continue;
-
-                // Parse Price
-                decimal price = 0;
-                if (!decimal.TryParse(worksheet.Cells[row, 2].Text?.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out price))
-                {
-                    price = 0; // o lanzar excepción si quieres forzar que sea válido
-                }
-
-                // Parse Quantity
-                int quantity = 0;
-                if (!int.TryParse(worksheet.Cells[row, 3].Text?.Trim(), out quantity))
-                {
-                    quantity = 0;
-                }
-
-                var category = worksheet.Cells[row, 4].Text?.Trim() ?? string.Empty;
-
-                products.Add(new ExcelProductDto
-                {
-                    Name = name,
-                    Price = price,
-                    Quantity = quantity,
-                });
+                result.Errors++;
+                result.Messages.Add("El archivo está vacío o no se proporcionó.");
+                return result;
             }
 
-            if (products.Count == 0) return false;
+            try
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            await _excelRepository.SaveProductsFromExcelAsync(products);
+                using var stream = new MemoryStream();
+                await file.CopyToAsync(stream);
+                using var package = new ExcelPackage(stream);
 
-            return true;
+                foreach (var worksheet in package.Workbook.Worksheets)
+                {
+                    if (worksheet?.Dimension == null) continue;
+
+                    int totalRows = worksheet.Dimension.End.Row;
+                    int totalCols = worksheet.Dimension.End.Column;
+                    result.TotalRows += totalRows - 1;
+
+                    // Detectar encabezados
+                    var headers = new Dictionary<int, string>();
+                    for (int c = 1; c <= totalCols; c++)
+                    {
+                        var header = worksheet.Cells[1, c].Text?.Trim().ToLowerInvariant();
+                        if (!string.IsNullOrEmpty(header))
+                            headers[c] = header;
+                    }
+
+                    var products = new List<ExcelProductDto>();
+
+                    for (int row = 2; row <= totalRows; row++)
+                    {
+                        try
+                        {
+                            string? name = FindValue(worksheet, headers, row, new[] { "nombre", "producto", "name" });
+                            string? priceText = FindValue(worksheet, headers, row, new[] { "precio", "price" });
+                            string? qtyText = FindValue(worksheet, headers, row, new[] { "cantidad", "qty", "quantity" });
+
+                            if (string.IsNullOrWhiteSpace(name))
+                            {
+                                result.Errors++;
+                                result.Messages.Add($"Hoja {worksheet.Name}, fila {row}: nombre vacío o inválido.");
+                                continue;
+                            }
+
+                            if (!decimal.TryParse(priceText, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal price))
+                            {
+                                result.Errors++;
+                                result.Messages.Add($"Hoja {worksheet.Name}, fila {row}: precio inválido '{priceText}'.");
+                                continue;
+                            }
+
+                            int.TryParse(qtyText, out int quantity);
+
+                            products.Add(new ExcelProductDto
+                            {
+                                Name = name,
+                                Price = price,
+                                Quantity = quantity
+                            });
+                        }
+                        catch (Exception exRow)
+                        {
+                            result.Errors++;
+                            result.Messages.Add($"Hoja {worksheet.Name}, fila {row}: {exRow.Message}");
+                        }
+                    }
+
+                    if (products.Any())
+                    {
+                        // ✅ Pasamos la hora local del usuario (si existe)
+                        await _excelRepository.SaveProductsFromExcelAsync(products, userCreatedAt);
+                        result.Imported += products.Count;
+                    }
+                }
+
+                if (result.Imported == 0)
+                {
+                    result.Errors++;
+                    result.Messages.Add("No se importaron productos válidos del archivo Excel.");
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Errors++;
+                result.Messages.Add($"Error procesando Excel: {ex.Message}");
+            }
+
+            return result;
         }
-        catch (Exception ex)
+
+        private static string? FindValue(ExcelWorksheet sheet, Dictionary<int, string> headers, int row, string[] candidates)
         {
-            // Aquí puedes loguear la excepción si tienes ILogger
-            Console.WriteLine($"Error procesando Excel: {ex.Message}");
-            return false;
+            foreach (var h in headers)
+            {
+                if (candidates.Any(c => h.Value.Contains(c)))
+                    return sheet.Cells[row, h.Key].Text?.Trim();
+            }
+            return null;
         }
     }
 }

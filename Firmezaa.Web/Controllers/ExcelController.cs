@@ -1,18 +1,12 @@
 ﻿using Firmezaa.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Firmezaa.Web.DTOs;
 
 namespace Firmezaa.Web.Controllers
 {
     [Route("Excel/[action]")]
-    public class ExcelController : Controller
+    public class ExcelController(IExcelService excelService) : Controller
     {
-        private readonly IExcelService _excelService;
-
-        public ExcelController(IExcelService excelService)
-        {
-            _excelService = excelService;
-        }
-
         [HttpGet]
         public IActionResult Upload()
         {
@@ -21,7 +15,7 @@ namespace Firmezaa.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile? file, string? localTime)
         {
             if (file == null || file.Length == 0)
             {
@@ -29,7 +23,6 @@ namespace Firmezaa.Web.Controllers
                 return View();
             }
 
-            // Validar extensión
             var extension = Path.GetExtension(file.FileName);
             if (extension != ".xlsx")
             {
@@ -39,12 +32,29 @@ namespace Firmezaa.Web.Controllers
 
             try
             {
-                var success = await _excelService.ProcessExcelAsync(file);
+                // ✅ Capturamos la hora local enviada desde el navegador (si existe)
+                DateTime? userCreatedAt = null;
+                if (!string.IsNullOrEmpty(localTime))
+                {
+                    // Parseamos la hora local recibida
+                    userCreatedAt = DateTime.Parse(localTime).ToUniversalTime(); 
+                }
 
-                if (success)
-                    TempData["Success"] = "Datos cargados correctamente a la base de datos.";
+                // ✅ Llamamos al servicio con la hora local del usuario
+                ExcelImportResult result = await excelService.ProcessExcelAsync(file, userCreatedAt);
+
+                if (result.Success)
+                {
+                    TempData["Success"] = $"✅ Se importaron {result.Imported} registros correctamente.";
+                    if (result.Messages.Any())
+                        TempData["Info"] = string.Join("<br>", result.Messages.Take(5));
+                }
                 else
-                    TempData["Error"] = "Ocurrió un error al procesar el archivo.";
+                {
+                    TempData["Error"] = $"❌ Se encontraron errores. {result.Imported} importados, {result.Errors} errores.";
+                    if (result.Messages.Any())
+                        TempData["Details"] = string.Join("<br>", result.Messages.Take(10));
+                }
 
                 return RedirectToAction("Upload");
             }

@@ -15,12 +15,13 @@ namespace Firmezaa.Web.Controllers
         {
             _productService = productService;
         }
+
         public async Task<IActionResult> Index()
         {
             var products = await _productService.GetAllProducts();
             return View(products);
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,35 +33,45 @@ namespace Firmezaa.Web.Controllers
 
             return View(product);
         }
-        
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price,Quantity,Category")] Product product)
+        public async Task<IActionResult> Create([Bind("Name,Price,Quantity,Category")] Product product, string? localTime)
         {
             if (!ModelState.IsValid)
                 return View(product);
 
             try
             {
-                product.CreatedAt = DateTime.UtcNow;
+                // ✅ Si el navegador envía la hora local del dispositivo, la usamos
+                if (!string.IsNullOrEmpty(localTime))
+                {
+                    // Convertimos la hora local del dispositivo a UTC para guardar de forma coherente
+                    product.CreatedAt = DateTime.Parse(localTime).ToUniversalTime();
+                }
+                else
+                {
+                    // Por compatibilidad: si no se envió, usamos la hora del servidor en UTC
+                    product.CreatedAt = DateTime.UtcNow;
+                }
 
                 await _productService.AddProduct(product);
 
-                TempData["Success"] = "Product created successfully!";
+                TempData["Success"] = "✅ Producto creado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while creating the product.");
+                ModelState.AddModelError(string.Empty, "❌ Ocurrió un error al crear el producto.");
                 return View(product);
             }
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,7 +83,7 @@ namespace Firmezaa.Web.Controllers
 
             return View(product);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Quantity,Category,CreatedAt")] Product product)
@@ -87,7 +98,7 @@ namespace Firmezaa.Web.Controllers
             {
                 await _productService.UpdateProduct(product);
 
-                TempData["Success"] = "Product updated successfully!";
+                TempData["Success"] = "✅ Producto actualizado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
@@ -99,7 +110,7 @@ namespace Firmezaa.Web.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while updating the product.");
+                ModelState.AddModelError(string.Empty, "❌ Ocurrió un error al actualizar el producto.");
                 return View(product);
             }
         }
@@ -115,7 +126,7 @@ namespace Firmezaa.Web.Controllers
 
             return View(product);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -124,17 +135,17 @@ namespace Firmezaa.Web.Controllers
             {
                 await _productService.DeleteProduct(id);
 
-                TempData["Success"] = "Product deleted successfully!";
+                TempData["Success"] = "✅ Producto eliminado correctamente.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
+                ModelState.AddModelError(string.Empty, "❌ Ocurrió un error al eliminar el producto.");
                 var product = await _productService.GetProductById(id);
                 return View(product);
             }
         }
-        
+
         private async Task<bool> ProductExists(int id)
         {
             var product = await _productService.GetProductById(id);

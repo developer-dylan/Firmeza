@@ -13,8 +13,9 @@
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
-<form asp-action="Upload" asp-controller="Excel" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" accept=".xlsx" />
+<form asp-action="Upload" asp-controller="Excel" method="post" enctype="multipart/form-data" id="excelForm">
+    <input type="file" name="file" id="excelInput" accept=".xlsx" />
+    <input type="hidden" name="localTime" id="localTime" />
     <button type="submit" class="btn btn-primary">Subir</button>
 </form>
 
@@ -26,4 +27,16 @@
             <p>@error.ErrorMessage</p>
         }
     </div>
+}
+
+@section Scripts {
+    <script>
+    const excelInput = document.getElementById("excelInput");
+    const localTimeInput = document.getElementById("localTime");
+
+    excelInput.addEventListener("change", () => {
+        const now = new Date();
+        localTimeInput.value = now.toISOString();
+    });
+</script>
 }

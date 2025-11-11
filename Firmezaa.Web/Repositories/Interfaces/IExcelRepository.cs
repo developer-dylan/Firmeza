@@ -4,6 +4,6 @@ namespace Firmezaa.Web.Repositories.Interfaces
 {
     public interface IExcelRepository
     {
-        Task SaveProductsFromExcelAsync(IEnumerable<ExcelProductDto> excelProducts);
+        Task SaveProductsFromExcelAsync(IEnumerable<ExcelProductDto> excelProducts, DateTime? userCreatedAt = null);
     }
 }
