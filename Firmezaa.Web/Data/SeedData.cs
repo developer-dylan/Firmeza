@@ -25,7 +25,7 @@ namespace Firmezaa.Web.Data
             }
 
             // Create admin user
-            string adminEmail = "admin@firmeza.com";
+            string adminEmail = "admin@gmail.com";
             string adminPassword = "admin123.";
 
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);
@@ -39,7 +39,7 @@ namespace Firmezaa.Web.Data
                     FullName = "System Administrator",
                     DocumentNumber = "0000000000",
                     PhoneNumber = "000000000",
-                    Address = "Head Office",
+                    RegisterDate = DateTime.UtcNow
                 };
 
                 var createResult = await userManager.CreateAsync(adminUser, adminPassword);
