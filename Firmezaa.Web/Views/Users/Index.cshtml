@@ -1,143 +1,84 @@
 @model IEnumerable<Firmezaa.Web.Models.Entities.User>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Usuarios";
 }
 
-<h1>Index</h1>
+<div class="container py-5">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocumentNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RegisterDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NormalizedUserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NormalizedEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailConfirmed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PasswordHash)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecurityStamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConcurrencyStamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LockoutEnd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LockoutEnabled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccessFailedCount)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocumentNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegisterDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NormalizedUserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NormalizedEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PasswordHash)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecurityStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LockoutEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LockoutEnabled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessFailedCount)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-warning mb-0">Administración de Usuarios</h2>
+
+        <a asp-action="Create" class="btn btn-warning text-dark shadow-sm px-4 fw-semibold rounded-3">
+            + Nuevo Usuario
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4 bg-white">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-warning text-dark text-center">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Fecha Registro</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    No hay usuarios registrados.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.FullName</td>
+                                    <td>@item.DocumentNumber</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.RegisterDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.UserName</td>
+
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-action="Edit" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-outline-warning text-dark fw-semibold rounded-3">
+                                                Editar
+                                            </a>
+
+                                            <a asp-action="Details" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-outline-secondary fw-semibold rounded-3">
+                                                Detalles
+                                            </a>
+
+                                            <a asp-action="Delete" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-outline-danger fw-semibold rounded-3">
+                                                Eliminar
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
