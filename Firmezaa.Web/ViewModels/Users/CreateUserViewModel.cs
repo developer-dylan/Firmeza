@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Firmezaa.Web.ViewModels.Users
 {
-    public class CreateUserViewModel 
+    public class CreateUserViewModel
     {
         [Required(ErrorMessage = "Full name is required.")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Full name must be 3-100 characters.")]
@@ -33,8 +33,8 @@ namespace Firmezaa.Web.ViewModels.Users
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Age is required.")]
-        [Range(18, 120, ErrorMessage = "Age must be 18-120.")]
-        public int Age { get; set; }
+        // Age opcional
+        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120.")]
+        public int? Age { get; set; }
     }
 }

@@ -18,9 +18,10 @@ namespace Firmezaa.Web.Models.Entities
         [Range(0, double.MaxValue, ErrorMessage = "El precio debe ser mayor o igual a 0.")]
         public decimal Price { get; set; }
 
+        // Usamos únicamente Quantity (Stock eliminado)
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo.")]
-        public int Stock { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "La cantidad no puede ser negativa.")]
+        public int Quantity { get; set; }
 
         [MaxLength(50)]
         public string? Category { get; set; }
@@ -30,8 +31,8 @@ namespace Firmezaa.Web.Models.Entities
 
         public ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
 
-        public int Quantity { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public DateTime? CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

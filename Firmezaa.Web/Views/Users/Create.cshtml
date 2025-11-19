@@ -40,6 +40,13 @@
                 </div>
 
                 <div class="col-md-6">
+                    <label asp-for="Age" class="form-label fw-semibold"></label>
+                    <input asp-for="Age" class="form-control rounded-3" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-md-6">
                     <label asp-for="UserName" class="form-label fw-semibold"></label>
                     <input asp-for="UserName" class="form-control rounded-3" />
                     <span asp-validation-for="UserName" class="text-danger"></span>

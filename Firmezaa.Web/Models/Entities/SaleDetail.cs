@@ -8,12 +8,10 @@ public class SaleDetail
     [Key]
     public int Id { get; set; }
 
-    // Relación con Sale
     [Required]
     public int SaleId { get; set; }
     public Sale Sale { get; set; } = null!;
 
-    // Relación con Product
     [Required]
     public int ProductId { get; set; }
     public Product Product { get; set; } = null!;

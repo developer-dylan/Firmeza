@@ -8,10 +8,12 @@ public class Sale
     [Key]
     public int Id { get; set; }
 
-    // Relación con Client
+    // Relación con el usuario de Identity
     [Required]
-    public int ClientId { get; set; }
-    public Client Client { get; set; } = null!;
+    public string UserId { get; set; } = string.Empty;
+
+    [ForeignKey("UserId")]
+    public User User { get; set; } = null!;
 
     [Required]
     public DateTime Date { get; set; } = DateTime.Now;
@@ -24,8 +26,7 @@ public class Sale
     public decimal IVA { get; set; }
 
     [MaxLength(50)]
-    public string? SaleType { get; set; } // Ejemplo: "Venta", "Renta"
+    public string? SaleType { get; set; } // Venta, Renta
 
-    // Relación con SaleDetails
     public ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
 }

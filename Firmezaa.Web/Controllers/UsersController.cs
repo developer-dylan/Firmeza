@@ -57,9 +57,10 @@ namespace Firmezaa.Web.Controllers
                 Email = model.Email,
                 FullName = model.FullName,
                 DocumentNumber = model.DocumentNumber,
-                PhoneNumber = model.Phone,
+                Phone = model.Phone,
                 RegisterDate = DateTime.UtcNow,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Age = model.Age   // <-- Age opcional correctamente asignado
             };
 
             try
