@@ -2,41 +2,84 @@
     ViewData["Title"] = "Subir Excel";
 }
 
-<h2>Subir archivo Excel</h2>
+<div class="container d-flex align-items-center justify-content-center min-vh-100"
+     style="background:#F3F4F6;">
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 550px;">
+        <div class="card-body p-5">
 
-<form asp-action="Upload" asp-controller="Excel" method="post" enctype="multipart/form-data" id="excelForm">
-    <input type="file" name="file" id="excelInput" accept=".xlsx" />
-    <input type="hidden" name="localTime" id="localTime" />
-    <button type="submit" class="btn btn-primary">Subir</button>
-</form>
+            <h2 class="fw-bold text-center mb-3" style="color:#1E40AF;">Subir archivo Excel</h2>
+            <p class="text-center text-muted mb-4">
+                Selecciona un archivo Excel (.xlsx) para subir los datos.
+            </p>
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <p>@error.ErrorMessage</p>
-        }
+            <!-- Mensajes -->
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success text-center">
+                    @TempData["Success"]
+                </div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @TempData["Error"]
+                </div>
+            }
+
+            <!-- FORMULARIO -->
+            <form asp-action="Upload" asp-controller="Excel" method="post" enctype="multipart/form-data" id="excelForm">
+
+                <div class="mb-4">
+                    <input type="file"
+                           name="file"
+                           id="excelInput"
+                           accept=".xlsx"
+                           class="form-control form-control-lg shadow-sm rounded-3"
+                           style="border:1px solid #CBD5E1;" />
+                </div>
+
+                <input type="hidden" name="localTime" id="localTime" />
+
+                <button type="submit"
+                        class="btn fw-semibold rounded-3 px-4 shadow-sm w-100"
+                        style="background:#2563EB; color:white;">
+                    Subir archivo
+                </button>
+            </form>
+
+            <!-- Validaciones -->
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger mt-3">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p class="mb-0">@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+
+            <div class="text-center mt-4">
+                <a asp-controller="Products" asp-action="Index"
+                   class="text-decoration-none fw-semibold"
+                   style="color:#2563EB;">
+                    ← Volver al inventario
+                </a>
+            </div>
+
+        </div>
     </div>
-}
+</div>
 
 @section Scripts {
     <script>
-    const excelInput = document.getElementById("excelInput");
-    const localTimeInput = document.getElementById("localTime");
+        const excelInput = document.getElementById("excelInput");
+        const localTimeInput = document.getElementById("localTime");
 
-    excelInput.addEventListener("change", () => {
-        const now = new Date();
-        localTimeInput.value = now.toISOString();
-    });
-</script>
+        excelInput.addEventListener("change", () => {
+            const now = new Date();
+            localTimeInput.value = now.toISOString();
+        });
+    </script>
 }

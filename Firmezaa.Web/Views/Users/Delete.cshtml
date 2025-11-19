@@ -4,41 +4,47 @@
     ViewData["Title"] = "Eliminar Usuario";
 }
 
-<div class="container py-5">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center"
+     style="background:#F3F4F6;">
 
-    <h2 class="fw-bold text-danger mb-4">Eliminar Usuario</h2>
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 650px;">
+        <div class="card-body p-5">
 
-    <div class="alert alert-danger fw-semibold rounded-3 shadow-sm p-4">
-        ¿Estás seguro de que deseas eliminar este usuario?
-    </div>
+            <h2 class="fw-bold text-center mb-3" style="color:#DC2626;">Eliminar Usuario</h2>
+            <p class="text-center text-muted">
+                Esta acción no se puede deshacer.
+            </p>
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4">
+            <div class="alert alert-danger fw-semibold rounded-3 shadow-sm p-3 mb-4">
+                ¿Estás seguro de que deseas eliminar este usuario?
+            </div>
 
-            <dl class="row">
-                <dt class="col-sm-3 fw-semibold">Nombre</dt>
-                <dd class="col-sm-9">@Model.FullName</dd>
+            <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 fw-semibold text-secondary">Nombre</dt>
+                    <dd class="col-sm-8">@Model.FullName</dd>
 
-                <dt class="col-sm-3 fw-semibold">Documento</dt>
-                <dd class="col-sm-9">@Model.DocumentNumber</dd>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Documento</dt>
+                    <dd class="col-sm-8">@Model.DocumentNumber</dd>
 
-                <dt class="col-sm-3 fw-semibold">Email</dt>
-                <dd class="col-sm-9">@Model.Email</dd>
-            </dl>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+                </dl>
+            </div>
 
-            <form asp-action="Delete" method="post" class="d-flex gap-3 mt-4">
+            <form asp-action="Delete" method="post" class="d-flex justify-content-between">
                 <input type="hidden" asp-for="Id" />
 
-                <button type="submit" class="btn btn-danger fw-semibold rounded-3 px-4">
-                    Confirmar Eliminación
-                </button>
-
-                <a asp-action="Index" class="btn btn-secondary rounded-3 fw-semibold px-4">
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-3 px-4">
                     Cancelar
                 </a>
+
+                <button type="submit" class="btn text-white rounded-3 px-4 shadow-sm fw-semibold"
+                        style="background:#DC2626;">
+                    Eliminar Usuario
+                </button>
             </form>
 
         </div>
     </div>
-
 </div>

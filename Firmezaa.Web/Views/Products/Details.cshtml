@@ -1,15 +1,19 @@
 ﻿@model Firmezaa.Web.Models.Entities.Product
+
 @{
     ViewData["Title"] = "Detalles del producto";
 }
 
-<div class="container min-vh-100 d-flex align-items-center justify-content-center bg-light">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center" style="background:#F8FAFC;">
+
     <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 700px;">
         <div class="card-body p-5">
-            <h2 class="fw-bold text-center text-warning mb-3">Detalles del producto</h2>
 
-            <div class="bg-white rounded-4 p-4 shadow-sm mb-4">
+            <h2 class="fw-bold text-center mb-4" style="color:#4F46E5;">Detalles del producto</h2>
+
+            <div class="bg-white rounded-4 p-4 shadow-sm border">
                 <dl class="row mb-0">
+
                     <dt class="col-sm-4 fw-semibold text-secondary">Nombre</dt>
                     <dd class="col-sm-8">@Model.Name</dd>
 
@@ -29,13 +33,16 @@
                     <dd class="col-sm-8">
                         @(Model.UpdatedAt.ToLocalTime().ToString() ?? "Nunca")
                     </dd>
+
                 </dl>
             </div>
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mt-4">
                 <a asp-action="Index" class="btn btn-outline-secondary rounded-3 fw-semibold px-4">Volver</a>
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-dark fw-semibold rounded-3 px-4 shadow-sm">Editar</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn text-white fw-semibold rounded-3 px-4 shadow-sm"
+                   style="background:#4F46E5;">Editar</a>
             </div>
+
         </div>
     </div>
 </div>

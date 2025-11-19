@@ -1,44 +1,55 @@
 @model Firmezaa.Web.Models.Entities.User
 
 @{
-    ViewData["Title"] = "Eliminar Usuario";
+    ViewData["Title"] = "Detalles del Usuario";
 }
 
-<div class="container py-5">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center" style="background:#F8FAFC;">
 
-    <h2 class="fw-bold text-danger mb-4">Eliminar Usuario</h2>
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 700px;">
+        <div class="card-body p-5">
 
-    <div class="alert alert-danger fw-semibold rounded-3 shadow-sm p-4">
-        ¿Estás seguro de que deseas eliminar este usuario?
-    </div>
+            <h2 class="fw-bold text-center mb-4" style="color:#4F46E5;">Detalles del Usuario</h2>
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4">
+            <div class="bg-white rounded-4 p-4 shadow-sm border">
+                <dl class="row mb-0">
 
-            <dl class="row">
-                <dt class="col-sm-3 fw-semibold">Nombre</dt>
-                <dd class="col-sm-9">@Model.FullName</dd>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Nombre Completo</dt>
+                    <dd class="col-sm-8">@Model.FullName</dd>
 
-                <dt class="col-sm-3 fw-semibold">Documento</dt>
-                <dd class="col-sm-9">@Model.DocumentNumber</dd>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Documento</dt>
+                    <dd class="col-sm-8">@Model.DocumentNumber</dd>
 
-                <dt class="col-sm-3 fw-semibold">Email</dt>
-                <dd class="col-sm-9">@Model.Email</dd>
-            </dl>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
 
-            <form asp-action="Delete" method="post" class="d-flex gap-3 mt-4">
-                <input type="hidden" asp-for="Id" />
+                    <dt class="col-sm-4 fw-semibold text-secondary">Teléfono</dt>
+                    <dd class="col-sm-8">@Model.Phone</dd>
 
-                <button type="submit" class="btn btn-danger fw-semibold rounded-3 px-4">
-                    Confirmar Eliminación
-                </button>
+                    <dt class="col-sm-4 fw-semibold text-secondary">Edad</dt>
+                    <dd class="col-sm-8">@Model.Age</dd>
 
-                <a asp-action="Index" class="btn btn-secondary rounded-3 fw-semibold px-4">
-                    Cancelar
+                    <dt class="col-sm-4 fw-semibold text-secondary">Usuario</dt>
+                    <dd class="col-sm-8">@Model.UserName</dd>
+
+                    <dt class="col-sm-4 fw-semibold text-secondary">Fecha de Registro</dt>
+                    <dd class="col-sm-8">@Model.RegisterDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</dd>
+
+                </dl>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-3 fw-semibold px-4">
+                    Volver
                 </a>
-            </form>
+
+                <a asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn text-white fw-semibold rounded-3 px-4 shadow-sm"
+                   style="background:#4F46E5;">
+                    Editar
+                </a>
+            </div>
 
         </div>
     </div>
-
 </div>

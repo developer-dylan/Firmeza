@@ -1,56 +1,81 @@
 ﻿@model Firmezaa.Web.ViewModels.CreateProductViewModel
 
 @{
-    ViewData["Title"] = "Agregar producto - Ferretería";
+    ViewData["Title"] = "Agregar producto";
 }
 
-<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-gradient"
-     style="background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);">
+<div class="container d-flex align-items-center justify-content-center min-vh-100"
+     style="background:#F3F4F6;">
 
     <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 650px;">
         <div class="card-body p-5">
-            <h2 class="fw-bold text-center text-dark mb-3">Agregar nuevo producto</h2>
-            <p class="text-center text-muted mb-4">Registra herramientas, materiales o equipos nuevos en el inventario.</p>
+
+            <h2 class="fw-bold text-center mb-3" style="color:#1E40AF;">Agregar nuevo producto</h2>
+            <p class="text-center text-muted mb-4">
+                Registra un nuevo artículo en el inventario.
+            </p>
 
             <form asp-action="Create">
                 <input type="hidden" name="localTime" id="localTime" />
-                <div asp-validation-summary="ModelOnly" class="alert alert-danger small" role="alert"></div>
+
+                <div asp-validation-summary="ModelOnly" 
+                     class="alert alert-danger small mb-4">
+                </div>
 
                 <div class="row g-3">
+
+                    <!-- Nombre -->
                     <div class="col-12">
-                        <label asp-for="Name" class="form-label fw-semibold text-secondary">Nombre del producto</label>
-                        <input asp-for="Name" class="form-control border-warning border-opacity-50 rounded-3 shadow-sm" />
+                        <label asp-for="Name" class="form-label fw-semibold text-secondary"></label>
+                        <input asp-for="Name"
+                               class="form-control shadow-sm rounded-3"
+                               style="border:1px solid #CBD5E1;" />
                         <span asp-validation-for="Name" class="text-danger small"></span>
                     </div>
 
+                    <!-- Precio -->
                     <div class="col-md-6">
-                        <label asp-for="Price" class="form-label fw-semibold text-secondary">Precio</label>
-                        <input asp-for="Price" class="form-control border-warning border-opacity-50 rounded-3 shadow-sm" />
+                        <label asp-for="Price" class="form-label fw-semibold text-secondary"></label>
+                        <input asp-for="Price"
+                               class="form-control shadow-sm rounded-3"
+                               style="border:1px solid #CBD5E1;" />
                         <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>
 
+                    <!-- Cantidad -->
                     <div class="col-md-6">
-                        <label asp-for="Quantity" class="form-label fw-semibold text-secondary">Cantidad</label>
-                        <input asp-for="Quantity" class="form-control border-warning border-opacity-50 rounded-3 shadow-sm" />
+                        <label asp-for="Quantity" class="form-label fw-semibold text-secondary"></label>
+                        <input asp-for="Quantity"
+                               class="form-control shadow-sm rounded-3"
+                               style="border:1px solid #CBD5E1;" />
                         <span asp-validation-for="Quantity" class="text-danger small"></span>
                     </div>
 
+                    <!-- Categoría -->
                     <div class="col-12">
-                        <label asp-for="Category" class="form-label fw-semibold text-secondary">Categoría</label>
-                        <input asp-for="Category" class="form-control border-warning border-opacity-50 rounded-3 shadow-sm" />
+                        <label asp-for="Category" class="form-label fw-semibold text-secondary"></label>
+                        <input asp-for="Category"
+                               class="form-control shadow-sm rounded-3"
+                               style="border:1px solid #CBD5E1;" />
                         <span asp-validation-for="Category" class="text-danger small"></span>
                     </div>
                 </div>
 
+                <!-- Botones -->
                 <div class="d-flex justify-content-between mt-4">
-                    <a asp-action="Index" class="btn btn-outline-dark rounded-3 px-4 fw-semibold">
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary fw-semibold rounded-3 px-4">
                         Volver
                     </a>
-                    <button type="submit" class="btn btn-warning text-dark fw-semibold rounded-3 px-4 shadow-sm">
+
+                    <button type="submit"
+                            class="btn fw-semibold rounded-3 px-4 shadow-sm"
+                            style="background:#2563EB; color:white;">
                         Guardar producto
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

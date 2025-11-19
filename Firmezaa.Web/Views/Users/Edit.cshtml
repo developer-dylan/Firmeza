@@ -4,68 +4,63 @@
     ViewData["Title"] = "Editar Usuario";
 }
 
-<div class="container py-5">
+<div class="container d-flex align-items-center justify-content-center min-vh-100"
+     style="background:#EEF2FF;">
 
-    <h2 class="fw-bold text-warning mb-4">Editar Usuario</h2>
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 750px;">
+        <div class="card-body p-5">
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4">
+            <h2 class="fw-bold text-center mb-3" style="color:#4F46E5;">Editar Usuario</h2>
 
             <form asp-action="Edit" method="post" class="row g-3">
 
                 <input type="hidden" asp-for="Id" />
 
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
 
                 <div class="col-md-6">
                     <label asp-for="FullName" class="form-label fw-semibold"></label>
-                    <input asp-for="FullName" class="form-control rounded-3" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
+                    <input asp-for="FullName" class="form-control rounded-3 shadow-sm" />
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="DocumentNumber" class="form-label fw-semibold"></label>
-                    <input asp-for="DocumentNumber" class="form-control rounded-3" />
-                    <span asp-validation-for="DocumentNumber" class="text-danger"></span>
+                    <input asp-for="DocumentNumber" class="form-control rounded-3 shadow-sm" />
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Email" class="form-label fw-semibold"></label>
-                    <input asp-for="Email" class="form-control rounded-3" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input asp-for="Email" class="form-control rounded-3 shadow-sm" />
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Phone" class="form-label fw-semibold"></label>
-                    <input asp-for="Phone" class="form-control rounded-3" />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
+                    <input asp-for="Phone" class="form-control rounded-3 shadow-sm" />
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="UserName" class="form-label fw-semibold"></label>
-                    <input asp-for="UserName" class="form-control rounded-3" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <input asp-for="UserName" class="form-control rounded-3 shadow-sm" />
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="RegisterDate" class="form-label fw-semibold"></label>
-                    <input asp-for="RegisterDate" class="form-control rounded-3" readonly />
+                    <input asp-for="RegisterDate" class="form-control rounded-3 shadow-sm" readonly />
                 </div>
 
-                <div class="col-12 d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-warning text-dark fw-semibold px-4 rounded-3 shadow-sm">
+                <div class="col-12 d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-3 px-4">
+                        Volver
+                    </a>
+                    <button type="submit"
+                            class="btn text-white fw-semibold rounded-3 px-4 shadow-sm"
+                            style="background:#4F46E5;">
                         Guardar Cambios
                     </button>
                 </div>
 
             </form>
+
         </div>
     </div>
-
-    <div class="mt-3">
-        <a asp-action="Index" class="text-decoration-none text-warning fw-semibold">
-            ← Volver a Usuarios
-        </a>
-    </div>
-
 </div>

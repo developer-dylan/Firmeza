@@ -7,28 +7,31 @@
 <div class="container py-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-warning mb-0">Inventario de Productos</h2>
+        <h2 class="fw-bold" style="color:#4F46E5;">Inventario de Productos</h2>
 
         <div class="d-flex gap-2">
             <form asp-controller="Excel" asp-action="Upload" method="post" enctype="multipart/form-data" id="excelForm">
                 <input type="file" name="file" id="excelInput" class="d-none" accept=".xlsx,.xls" />
-                <button type="button" class="btn btn-outline-warning text-dark fw-semibold rounded-3 px-4" onclick="document.getElementById('excelInput').click()">
+                <button type="button" class="btn btn-outline-primary fw-semibold rounded-3 px-4"
+                        onclick="document.getElementById('excelInput').click()">
                     Cargar Excel
                 </button>
             </form>
 
-            <a asp-action="Create" class="btn btn-warning text-dark shadow-sm px-4 fw-semibold rounded-3">+ Nuevo</a>
+            <a asp-action="Create" class="btn text-white fw-semibold rounded-3 px-4 shadow-sm"
+               style="background:#4F46E5;">Agregar producto</a>
         </div>
     </div>
 
     <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4 bg-white">
+        <div class="card-body p-4">
+
             <div class="table-responsive">
                 <table class="table table-hover align-middle text-center">
-                    <thead class="table-warning">
+                    <thead style="background:#E0E7FF;">
                     <tr>
                         <th>Nombre</th>
-                        <th>Precio ($)</th>
+                        <th>Precio</th>
                         <th>Cantidad</th>
                         <th>Categoría</th>
                         <th>Creado</th>
@@ -41,7 +44,9 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="7" class="text-muted py-4">No hay productos registrados.</td>
+                            <td colspan="7" class="text-muted py-4">
+                                No hay productos registrados.
+                            </td>
                         </tr>
                     }
                     else
@@ -55,14 +60,12 @@
                                 <td>@item.Category</td>
 
                                 <td>@item.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
-                                <td>@(item.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm") ?? "Nunca")</td>
+                                <td>@item.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
 
-                                <td>
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detalles</a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
-                                    </div>
+                                <td class="d-flex justify-content-center gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
                                 </td>
                             </tr>
                         }
@@ -71,19 +74,15 @@
 
                 </table>
             </div>
+
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        const excelInput = document.getElementById("excelInput");
-        const excelForm = document.getElementById("excelForm");
-
-        excelInput.addEventListener("change", function () {
-            if (this.files.length > 0) {
-                excelForm.submit();
-            }
+        document.getElementById("excelInput").addEventListener("change", () => {
+            document.getElementById("excelForm").submit();
         });
     </script>
 }

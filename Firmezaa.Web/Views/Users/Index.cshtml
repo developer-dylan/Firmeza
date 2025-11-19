@@ -7,18 +7,21 @@
 <div class="container py-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-warning mb-0">Administración de Usuarios</h2>
+        <h2 class="fw-bold" style="color:#4F46E5;">Gestión de Usuarios</h2>
 
-        <a asp-action="Create" class="btn btn-warning text-dark shadow-sm px-4 fw-semibold rounded-3">
+        <a asp-action="Create"
+           class="btn text-white fw-semibold px-4 rounded-3 shadow-sm"
+           style="background:#4F46E5;">
             + Nuevo Usuario
         </a>
     </div>
 
     <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body p-4 bg-white">
+        <div class="card-body p-4">
+
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-warning text-dark text-center">
+                <table class="table table-hover align-middle text-center">
+                    <thead style="background:#E0E7FF;">
                         <tr>
                             <th>Nombre</th>
                             <th>Documento</th>
@@ -35,7 +38,7 @@
                         @if (!Model.Any())
                         {
                             <tr>
-                                <td colspan="7" class="text-center text-muted py-4">
+                                <td colspan="7" class="text-muted py-4">
                                     No hay usuarios registrados.
                                 </td>
                             </tr>
@@ -44,7 +47,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr class="text-center">
+                                <tr>
                                     <td>@item.FullName</td>
                                     <td>@item.DocumentNumber</td>
                                     <td>@item.Email</td>
@@ -52,23 +55,19 @@
                                     <td>@item.RegisterDate.ToString("dd/MM/yyyy")</td>
                                     <td>@item.UserName</td>
 
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a asp-action="Edit" asp-route-id="@item.Id"
-                                               class="btn btn-sm btn-outline-warning text-dark fw-semibold rounded-3">
-                                                Editar
-                                            </a>
-
-                                            <a asp-action="Details" asp-route-id="@item.Id"
-                                               class="btn btn-sm btn-outline-secondary fw-semibold rounded-3">
-                                                Detalles
-                                            </a>
-
-                                            <a asp-action="Delete" asp-route-id="@item.Id"
-                                               class="btn btn-sm btn-outline-danger fw-semibold rounded-3">
-                                                Eliminar
-                                            </a>
-                                        </div>
+                                    <td class="d-flex justify-content-center gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-outline-primary">
+                                            Editar
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-outline-secondary">
+                                            Detalles
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Eliminar
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -78,7 +77,7 @@
 
                 </table>
             </div>
+
         </div>
     </div>
-
 </div>
