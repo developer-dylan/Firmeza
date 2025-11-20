@@ -1,48 +1,81 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
+﻿/* ============================
+   GENERAL STYLES
+============================ */
 
 a {
-  color: #0077cc;
+    color: #0d6efd;
+    text-decoration: none;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+a:hover {
+    color: #0a58ca;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+/* ============================
+   NAVBAR STYLING
+============================ */
+
+.navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1e293b !important;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.nav-link {
+    font-weight: 500;
+    color: #334155 !important;
+    transition: 0.2s ease-in-out;
 }
+
+.nav-link:hover {
+    color: #1e293b !important;
+}
+
+/* Botón Volver */
+.btn-back {
+    border-radius: 8px;
+    border: 1px solid #0f172a;
+    background: transparent;
+    padding: 6px 16px;
+    font-weight: 600;
+    transition: 0.2s ease-in-out;
+}
+
+.btn-back:hover {
+    background: #0f172a;
+    color: #fff;
+}
+
+/* Sales Button */
+.nav-sales-btn {
+    background: #facc15;
+    color: #1e1e1e !important;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.2s ease-in-out;
+}
+
+.nav-sales-btn:hover {
+    background: #eab308;
+}
+
+/* ============================
+   FOOTER
+============================ */
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+    color: #475569;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    text-align: center;
 }
