@@ -1,18 +1,18 @@
-@model IEnumerable<Firmezaa.Web.Models.Entities.SaleDetail>
+@model IEnumerable<Firmezaa.Web.Models.Entities.Sale>
 
 @{
-    ViewData["Title"] = "Sale Details";
+    ViewData["Title"] = "Sales";
 }
 
 <div class="container py-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0" style="color:#4F46E5;">Sale Details</h2>
+        <h2 class="fw-bold mb-0" style="color:#4F46E5;">Sales</h2>
 
         <a asp-action="Create"
            class="btn text-white fw-semibold px-4 rounded-3 shadow-sm"
            style="background:#4F46E5;">
-            + Add Detail
+            + Add Sale
         </a>
     </div>
 
@@ -22,11 +22,10 @@
                 <table class="table table-hover align-middle text-center">
                     <thead style="background:#E0E7FF;">
                         <tr>
-                            <th>Sale ID</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Unit Price</th>
-                            <th>Subtotal</th>
+                            <th>ID</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>User</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -35,8 +34,8 @@
                         @if (!Model.Any())
                         {
                             <tr>
-                                <td colspan="6" class="text-muted py-4">
-                                    No sale details found.
+                                <td colspan="5" class="text-muted py-4">
+                                    No sales found.
                                 </td>
                             </tr>
                         }
@@ -45,11 +44,8 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.Sale.Id</td>
-                                    <td>@item.Product.Name</td>
-                                    <td>@item.Quantity</td>
-                                    <td>@item.UnitPrice.ToString("C")</td>
-                                    <td>@item.Subtotal.ToString("C")</td>
+                                    <td>@item.Id</td>
+                                    <td>@item.User?.FullName</td>
 
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
