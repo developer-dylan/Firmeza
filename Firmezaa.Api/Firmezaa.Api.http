@@ -1,4 +1,4 @@
-@Firmezaa.Api_HostAddress = http://localhost:5268
+@Firmezaa.Api_HostAddress = http://localhost:5206
 
 GET {{Firmezaa.Api_HostAddress}}/weatherforecast/
 Accept: application/json

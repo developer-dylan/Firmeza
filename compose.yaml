@@ -5,3 +5,15 @@
       context: .
       dockerfile: Firmezaa.Web/Dockerfile
 
+  webapplication1:
+    image: webapplication1
+    build:
+      context: .
+      dockerfile: WebApplication1/Dockerfile
+
+  firmezaa.api:
+    image: firmezaa.api
+    build:
+      context: .
+      dockerfile: Firmezaa.Api/Dockerfile
+
