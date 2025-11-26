@@ -19,7 +19,7 @@
 
     <ItemGroup>
       <Folder Include="Data\" />
-      <Folder Include="DTOS\" />
+      <Folder Include="DTOs\" />
       <Folder Include="Extensions\" />
       <Folder Include="Mappings\" />
       <Folder Include="Repositories\Implementations\" />
