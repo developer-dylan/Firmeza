@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Configs\" />
       <Folder Include="Controllers\" />
       <Folder Include="Data\" />
       <Folder Include="DTOS\" />
