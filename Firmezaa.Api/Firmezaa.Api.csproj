@@ -18,7 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <Folder Include="Data\Entities\" />
+      <Folder Include="Data\Seeders\" />
       <Folder Include="DTOs\" />
       <Folder Include="Extensions\" />
       <Folder Include="Mappings\" />
