@@ -1,5 +1,5 @@
 using Firmezaa.Api.DTOs;
-using Firmezaa.Api.Interfaces;
+using Firmezaa.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Firmezaa.Api.Controllers

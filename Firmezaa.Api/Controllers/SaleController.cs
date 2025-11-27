@@ -1,13 +1,13 @@
 using Firmezaa.Api.Data.Entities;
 using Firmezaa.Api.DTOs.Sale;
 using Firmezaa.Api.DTOs.SaleProduct;
-using Firmezaa.Api.Interfaces;
+using Firmezaa.Api.Services.Interfaces;
 using Firmezaa.Api.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Firmeza.API.Controllers
+namespace Firmezaa.Api.Controllers
 {
     [Route("api/sales")]
     [ApiController]

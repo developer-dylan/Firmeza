@@ -1,8 +1,8 @@
 using Firmezaa.Api.DTOs.SaleProduct;
-using Firmezaa.Api.Interfaces;
+using Firmezaa.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Firmeza.API.Controllers
+namespace Firmezaa.Api.Controllers
 {
     [Route("api/sale-products")]
     [ApiController]
