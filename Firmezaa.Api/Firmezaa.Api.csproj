@@ -23,10 +23,8 @@
       <Folder Include="Extensions\" />
       <Folder Include="Mappings\" />
       <Folder Include="Repositories\Implementations\" />
-      <Folder Include="Repositories\Interfaces\" />
       <Folder Include="Responses\" />
       <Folder Include="Services\Implementations\" />
-      <Folder Include="Services\Interfaces\" />
     </ItemGroup>
 
 </Project>
